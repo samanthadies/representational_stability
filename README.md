@@ -59,6 +59,9 @@ git clone https://github.com/samanthadies/representational_stability.git
 cd representational_stability
 ```
 
+**Note:** Some output directories contain a `.gitkeep` file. This is just a
+placeholder so git will track otherwise-empty directories; it is safe to ignore.
+
 ### Environment Setup
 
 You can recreate the exact environment using:
