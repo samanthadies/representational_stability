@@ -41,12 +41,12 @@ True, False, and Synthetic Data:
 Fictional Data:
 
     @misc{stability2025data,
-      title={representational-stability},
-      author={Samantha Dies and Maynard Courtney and Germans Savcisens and Tina Eliassi-Rad},
-      url={},
-      doi={},
-      publisher={HuggingFace}
-      year={2025},
+	  author = {Samantha Dies and Courtney Maynard and Germans Savcisens and Tina Eliassi-Rad},
+	  title = {representational_stability (Revision 44f0317)},
+	  year = {2025},
+	  url = {https://huggingface.co/datasets/samanthadies/representational_stability},
+	  doi = {10.57967/hf/7040},
+	  publisher = {Hugging Face}
     }
 
 ------------------------------------------------------------------------
@@ -197,6 +197,15 @@ If you use any of the code in this repository, please cite our preprint
     }
 
 If you use the Fictional data, please cite
+
+    @misc{stability2025data,
+	  author = {Samantha Dies and Courtney Maynard and Germans Savcisens and Tina Eliassi-Rad},
+	  title = {representational_stability (Revision 44f0317)},
+	  year = {2025},
+	  url = {https://huggingface.co/datasets/samanthadies/representational_stability},
+	  doi = {10.57967/hf/7040},
+	  publisher = {Hugging Face}
+    }
 
 If you use the True, False, or Synthetic data, please cite
 
