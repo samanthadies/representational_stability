@@ -19,8 +19,8 @@ If you use this code, please include a citation to
     @article{dies2025representationalstability,
       title={Representational Stability in Large Language Models},
       author={Samantha Dies and Maynard Courtney and Germans Savcisens and Tina Eliassi-Rad},
-      journal={},
-      doi={},
+      journal={arXiv preprint arXiv:2511.19166},
+      doi={10.48550/arXiv.2511.19166},
       year={2025},
     }
 
@@ -191,8 +191,9 @@ If you use any of the code in this repository, please cite our preprint
 
     @article{dies2025representationalstability,
       title={Representational Stability in Large Language Models},
-      author={Dies, Samantha and Maynard, Courtney, and Savcisens, Germans and Eliassi-Rad, Tina},
-      journal={arXiv preprint},
+      author={Samantha Dies and Maynard Courtney and Germans Savcisens and Tina Eliassi-Rad},
+      journal={arXiv preprint arXiv:2511.19166},
+      doi={10.48550/arXiv.2511.19166},
       year={2025},
     }
 
