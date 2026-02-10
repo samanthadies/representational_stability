@@ -116,12 +116,11 @@ def instruct_tokenize(batch, tokenizer, cfg):
 
 
 class Hook:
-
     def __init__(self):
         self.out = None
 
     def __call__(self, module, module_inputs, module_outputs):
-        """
+       """
         Forward-hook callback used by PyTorch.
 
         :param module: the instance the hook is attached to
@@ -129,10 +128,11 @@ class Hook:
         :param module_outputs: output returned by the module
         :return: None
         """
-        try:
-            self.out, _ = module_outputs
-        except:
+        if isinstance(module_outputs, (tuple, list)):
             self.out = module_outputs[0]
+        else:
+            # If it returns a tensor, keep it as-is
+            self.out = module_outputs
 
 
 @hydra.main(config_path="configs", config_name="activations")
@@ -236,9 +236,17 @@ def main(cfg: DictConfig):
                 output = output.float()
 
             if cfg.agg == "last":
-                embeddings = output[:, -1].detach().cpu().numpy().astype(np.float16)
+                # expect (B, T, H)
+                assert output.ndim == 3, f"Expected (B,T,H) got {output.shape}"
+                embeddings = output[:, -1, :].detach().cpu().numpy().astype(np.float16)
+                acts_memmap[layer][_last_row:_last_row + embeddings.shape[0], :] = embeddings
+
             elif cfg.agg == "full":
+                # expect (B, T, H)
+                assert output.ndim == 3, f"Expected (B,T,H) got {output.shape}"
+                assert output.shape[1] == MAX_LEN, f"Expected T={MAX_LEN} got {output.shape[1]}"
                 embeddings = output.detach().cpu().numpy().astype(np.float16)
+                acts_memmap[layer][_last_row:_last_row + embeddings.shape[0], :, :] = embeddings
             else:
                 raise NotImplementedError
 
