@@ -12,7 +12,7 @@ Adapted from:
   year={2025}
 }
 
-2025-11-14 - SD
+2026-03-05 - SD
 """
 
 import logging
@@ -120,7 +120,7 @@ class Hook:
         self.out = None
 
     def __call__(self, module, module_inputs, module_outputs):
-       """
+        """
         Forward-hook callback used by PyTorch.
 
         :param module: the instance the hook is attached to
@@ -133,6 +133,7 @@ class Hook:
         else:
             # If it returns a tensor, keep it as-is
             self.out = module_outputs
+
 
 
 @hydra.main(config_path="configs", config_name="activations")
@@ -158,19 +159,19 @@ def main(cfg: DictConfig):
     torch.set_grad_enabled(False)
 
     for dataset in cfg.datasets:
-    
+
         # Setup forward hooks once (one per layer)
         layer = return_layers(cfg, dataset)
         hooks, handles = [], []
         encoder = model.get_submodule(cfg.model["module"]).get_submodule(
             cfg.model["encoders"]
         )
-        
+
         hook = Hook()
         handle = encoder[layer].register_forward_hook(hook)
         hooks.append(hook)
         handles.append(handle)
-            
+
         statements = load_statements(dataset)
         n_batches = max(1, len(statements) // int(cfg.batch_size))
         batches = np.array_split(statements, n_batches)
@@ -249,10 +250,6 @@ def main(cfg: DictConfig):
                 acts_memmap[layer][_last_row:_last_row + embeddings.shape[0], :, :] = embeddings
             else:
                 raise NotImplementedError
-
-            # write batch into memmap
-            for i in range(batch.shape[0]):
-                acts_memmap[layer][_last_row + i] = embeddings[i]
 
             _last_row += batch.shape[0]
 
